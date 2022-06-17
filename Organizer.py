@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import pathlib
 
 def Main() -> None:
     Files :list(str) = GetFiles()
@@ -35,23 +34,23 @@ def GetFileType(File :str) -> str:
             return "Folder"
 
         for i in ImageExtensions:
-            if pathlib.Path(i).suffix == i.lower():
+            if File.endswith(i.lower()):
                 return "Image"
 
         for i in DocumentExtensions:
-            if pathlib.Path(i).suffix == i.lower():
+            if File.endswith(i.lower()):
                 return "Document"
 
         for i in VideoExtensions:
-            if pathlib.Path(i).suffix == i.lower():
+            if File.endswith(i.lower()):
                 return "Video"
 
         for i in AudioExtensions:
-            if pathlib.Path(i).suffix == i.lower():
+            if File.endswith(i.lower()):
                 return "Audio"
 
         for i in ArchiveExtensions:
-            if pathlib.Path(i).suffix == i.lower():
+            if File.endswith(i.lower()):
                 return "Archive"
         
         return "Other"
@@ -118,25 +117,18 @@ def ManageFiles(Files, RootFolderName) -> None:
 
             if GetFileType(i) == "Image":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Images/" + i)
-                continue
-            if GetFileType(i) == "Document":
+            elif GetFileType(i) == "Document":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Documents/" + i)
-                continue
-            if GetFileType(i) == "Video":
+            elif GetFileType(i) == "Video":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Videos/" + i)
-                continue
-            if GetFileType(i) == "Audio":
+            elif GetFileType(i) == "Audio":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Audios/" + i)
-                continue
-            if GetFileType(i) == "Archive":
+            elif GetFileType(i) == "Archive":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Archives/" + i)
-                continue
-            if GetFileType(i) == "Folder":
+            elif GetFileType(i) == "Folder":
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Folders/" + i)
-                continue
-            if GetFileType(i) == "Other":
+            else:
                 os.rename(cwd + "/" + i, cwd + "/" + RootFolderName + "/Other/" + i)
-                continue 
 
         PrintSuccess(f"Every file organised in '{GetCurrentWorkingDirectory()}' folder.")
     except:
